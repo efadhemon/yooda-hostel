@@ -3,7 +3,6 @@ import foodController from "../../modules/food/food.controller";
 
 const foodRouter = express.Router();
 
-// user routes
 foodRouter.post("/", foodController.create);
 foodRouter.get("/", foodController.get);
 foodRouter.get("/:id", foodController.getById);
