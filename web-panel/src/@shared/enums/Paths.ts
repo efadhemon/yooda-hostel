@@ -12,4 +12,10 @@ export enum Paths {
     FoodList = "/food/list",
     FoodCreate = "/food/create",
     FoodUpdate = "/food/update",
+
+    //Distribution
+    Distribution = "/distribution",
+    DistributionList = "/distribution/list",
+    DistributionCreate = "/distribution/create",
+    DistributionUpdate = "/distribution/update",
 }

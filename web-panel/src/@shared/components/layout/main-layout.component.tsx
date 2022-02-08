@@ -8,6 +8,7 @@ import { Paths } from "@shared/enums";
 import { useNavigate } from "react-router-dom";
 import { useResponsive } from "ahooks";
 import { AiOutlineUnorderedList, AiOutlineUser } from "react-icons/ai";
+import { RiFileListLine } from "react-icons/ri";
 
 const { Header, Sider, Content } = Layout;
 
@@ -130,6 +131,15 @@ const MainLayout: React.FC<IFProps> = ({ children }) => {
                     >
                         Foods
                     </Menu.Item>
+                    <Menu.Item
+                        icon={<RiFileListLine />}
+                        onClick={() =>
+                            navigate(Paths.DistributionList, { replace: true })
+                        }
+                        key={Paths.DistributionList}
+                    >
+                        Distributions
+                    </Menu.Item>
                 </Menu>
             </Sider>
             <Layout style={styles.layout as any}>
@@ -145,7 +155,7 @@ const MainLayout: React.FC<IFProps> = ({ children }) => {
                         )}
                     </div>
 
-                    <Button type="primary">Welcome</Button>
+                    <Button>Welcome</Button>
                 </Header>
                 <Content style={styles.content as any}>{children}</Content>
             </Layout>

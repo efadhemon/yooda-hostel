@@ -2,66 +2,78 @@ import { Button, Popconfirm, Space, Table } from "antd";
 import { useState } from "react";
 import { Paths } from "@shared/enums";
 import { useNavigate } from "react-router-dom";
-import { useDeleteStudent, useStudents } from "@shared/hooks";
-import { IStudent } from "@shared/interfaces";
+import { IDistribution, IFood } from "@shared/interfaces";
+import { useDeleteDistribution, useDistributions } from "@shared/hooks";
 
-const StudentList = () => {
+const DistributionList = () => {
     const navigate = useNavigate();
 
-    const deleteStudent = useDeleteStudent();
+    const deleteDistribution = useDeleteDistribution();
 
     const [dataQuantity, setDataQuantity] = useState({
         page: 1,
         take: 10,
     });
-    const { data, isLoading } = useStudents({
+    const { data, isLoading } = useDistributions({
         options: {
             page: dataQuantity.page,
             take: dataQuantity.take,
         },
     });
 
-    const dataSource = data?.data?.payload?.map((x: IStudent) => ({
+    const dataSource = data?.data?.payload?.map((x: IDistribution) => ({
         key: x._id,
         id: x._id,
-        name: x.name,
-        age: x.age,
-        class: x.class,
-        roll: x.roll,
-        hall: x.hall,
+        studentName: x.student?.name,
+        roll: x.student?.roll,
+        shift: x.shift,
+        date: x.date,
         status: x.status,
+        foodItems: x.foodItems,
     }));
 
     const columns = [
         {
-            title: "Name",
-            dataIndex: "name",
-            key: "name",
+            title: "Student Name",
+            dataIndex: "studentName",
+            key: "studentName",
         },
         {
-            title: "Age",
-            dataIndex: "age",
-            key: "age",
-        },
-        {
-            title: "Class",
-            dataIndex: "class",
-            key: "class",
-        },
-        {
-            title: "Roll",
+            title: "Student Roll",
             dataIndex: "roll",
             key: "roll",
         },
         {
-            title: "Hall",
-            dataIndex: "hall",
-            key: "hall",
+            title: "Shift",
+            dataIndex: "shift",
+            key: "shift",
+        },
+        {
+            title: "Date",
+            dataIndex: "date",
+            key: "date",
         },
         {
             title: "Status",
             dataIndex: "status",
             key: "status",
+        },
+        {
+            title: "Status",
+            dataIndex: "status",
+            key: "status",
+        },
+        {
+            title: "Food Items",
+            dataIndex: "foodItems",
+            key: "foodItems",
+            render: (foodItems: IFood[]) => (
+                <p>
+                    {foodItems?.map((food) => (
+                        <span>{food.name + ", "}</span>
+                    ))}
+                </p>
+            ),
         },
         {
             title: "Action",
@@ -71,16 +83,19 @@ const StudentList = () => {
                 <Space>
                     <Button
                         type="primary"
-                        onClick={() => navigate(`${Paths.StudentUpdate}/${id}`)}
+                        onClick={() =>
+                            // navigate(`${Paths.DistributionList}/${id}`)
+                            null
+                        }
                     >
-                        Update
+                        Edit
                     </Button>
                     <Popconfirm
                         okButtonProps={{
                             loading: false,
                         }}
-                        title="Are you sure to delete this student?"
-                        onConfirm={() => deleteStudent.mutate(id)}
+                        title="Are you sure to delete this?"
+                        onConfirm={() => deleteDistribution.mutate(id)}
                         okText="Yes"
                         cancelText="No"
                     >
@@ -109,4 +124,4 @@ const StudentList = () => {
     );
 };
 
-export default StudentList;
+export default DistributionList;

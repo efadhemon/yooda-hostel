@@ -55,7 +55,7 @@ const FoodList = () => {
                         okButtonProps={{
                             loading: false,
                         }}
-                        title="Are you sure to delete this task?"
+                        title="Are you sure to delete this food?"
                         onConfirm={() => deleteFood.mutate(id)}
                         okText="Yes"
                         cancelText="No"

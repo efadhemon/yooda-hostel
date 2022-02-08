@@ -6,9 +6,9 @@ import { notification } from "antd";
 
 //---------------- useFoods hook ------------------------------------
 type IFuseFoods = {
-    options: IStudentFilter;
+    options?: IStudentFilter;
 };
-export const useFoods = ({ options }: IFuseFoods) => {
+export const useFoods = ({ options = {} }: IFuseFoods = {}) => {
     return useQuery({
         queryKey: [foodService.NAME, options],
         queryFn: () => foodService.filter(options),
@@ -63,7 +63,7 @@ export const useDeleteFood = ({ config }: IFuseDeleteFood = {}) => {
             queryClient.invalidateQueries(foodService.NAME);
             notification.success({
                 type: "success",
-                message: "User Deleted",
+                message: "Food Deleted",
             });
         },
         ...config,

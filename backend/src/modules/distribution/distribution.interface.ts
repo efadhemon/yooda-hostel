@@ -1,9 +1,9 @@
 import mongoose, { Document } from "mongoose";
 
 export default interface IDistribution extends Document {
-    studentId: any;
+    student: any;
     shift: string;
     date: string;
     status: string;
-    foodItemList: any;
+    foodItems: any;
 }

@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const foodSchema = new Schema<IDistribution>(
     {
-        studentId: {
+        student: {
             type: mongoose.Types.ObjectId,
             ref: "Student",
             required: true,
@@ -20,8 +20,9 @@ const foodSchema = new Schema<IDistribution>(
         status: {
             type: String,
             required: true,
+            default: "Served",
         },
-        foodItemList: [
+        foodItems: [
             {
                 type: mongoose.Types.ObjectId,
                 ref: "Food",

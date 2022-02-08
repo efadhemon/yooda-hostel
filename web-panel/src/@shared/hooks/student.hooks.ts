@@ -63,7 +63,7 @@ export const useDeleteStudent = ({ config }: IFuseDeleteStudent = {}) => {
             queryClient.invalidateQueries(studentService.NAME);
             notification.success({
                 type: "success",
-                message: "User Deleted",
+                message: "Student Deleted",
             });
         },
         ...config,

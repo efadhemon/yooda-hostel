@@ -1,3 +1,4 @@
+import { DistributionRoutes } from "@modules/distribution";
 import { FoodRoutes } from "@modules/food";
 import { StudentRoutes } from "@modules/student";
 import MainLayout from "@shared/components/layout/main-layout.component";
@@ -24,6 +25,10 @@ const Routes = () => {
         {
             path: Paths.Food,
             children: FoodRoutes,
+        },
+        {
+            path: Paths.Distribution,
+            children: DistributionRoutes,
         },
     ];
     return useRoutes([

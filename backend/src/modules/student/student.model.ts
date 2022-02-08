@@ -35,5 +35,5 @@ const studentSchema = new Schema<IStudent>(
     }
 );
 
-const Student = mongoose.model<IStudent>("User", studentSchema);
+const Student = mongoose.model<IStudent>("Student", studentSchema);
 export default Student;
