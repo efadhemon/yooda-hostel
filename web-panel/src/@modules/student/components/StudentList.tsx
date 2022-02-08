@@ -1,9 +1,16 @@
-import { Button, Popconfirm, Space, Table } from "antd";
+import { Button, notification, Popconfirm, Select, Space, Table } from "antd";
 import { useState } from "react";
 import { Paths } from "@shared/enums";
 import { useNavigate } from "react-router-dom";
-import { useDeleteStudent, useStudents } from "@shared/hooks";
+import {
+    useDeleteStudent,
+    useStudents,
+    useUpdateStudents,
+} from "@shared/hooks";
 import { IStudent } from "@shared/interfaces";
+import { AxiosResponse } from "axios";
+import { queryClient } from "@shared/config";
+import { studentService } from "@shared/services";
 
 const StudentList = () => {
     const navigate = useNavigate();
@@ -93,19 +100,71 @@ const StudentList = () => {
         },
     ];
 
+    const updateStudents = useUpdateStudents({
+        config: {
+            onSuccess: (res: AxiosResponse) => {
+                if (res?.data?.success) {
+                    queryClient.invalidateQueries(studentService.NAME);
+                    setSelectedStudent([]);
+                    notification.success({
+                        message: res?.data?.message,
+                    });
+                } else {
+                    notification.error({
+                        message: res?.data?.message || "Something is wrong",
+                    });
+                }
+            },
+        },
+    });
+
+    const [selectedStudent, setSelectedStudent] = useState([]);
+    const rowSelection = {
+        selectedRowKeys: selectedStudent,
+        onChange: (selectedRowKeys: any) => setSelectedStudent(selectedRowKeys),
+    };
+
+    const hasSelected = selectedStudent.length > 0;
+
+    const onChangeStatus = (value: string) => {
+        const data = selectedStudent.map((id) => ({ id, status: value }));
+        updateStudents.mutateAsync(data);
+    };
+
     return (
-        <Table
-            columns={columns}
-            dataSource={dataSource}
-            loading={isLoading}
-            pagination={{
-                pageSize: 10,
-                total: data?.data?.total,
-                onChange: (page: number, take: number) => {
-                    setDataQuantity({ page, take });
-                },
-            }}
-        />
+        <div>
+            <div style={{ marginBottom: 16 }}>
+                <Select
+                    onChange={onChangeStatus}
+                    placeholder="Change Status"
+                    style={{ width: 200 }}
+                    disabled={!hasSelected}
+                    loading={updateStudents.isLoading}
+                >
+                    <Select.Option value="Active">Active</Select.Option>
+                    <Select.Option value="InActive">InActive</Select.Option>
+                </Select>
+
+                <span style={{ marginLeft: 8 }}>
+                    {hasSelected
+                        ? `Selected ${selectedStudent.length} students`
+                        : ""}
+                </span>
+            </div>
+            <Table
+                rowSelection={rowSelection}
+                columns={columns}
+                dataSource={dataSource}
+                loading={isLoading}
+                pagination={{
+                    pageSize: 10,
+                    total: data?.data?.total,
+                    onChange: (page: number, take: number) => {
+                        setDataQuantity({ page, take });
+                    },
+                }}
+            />
+        </div>
     );
 };
 

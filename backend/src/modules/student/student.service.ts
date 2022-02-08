@@ -19,6 +19,20 @@ const studentService = {
     updateById: async (id: string, data: any) => {
         return Student.findByIdAndUpdate(id, data, { new: true });
     },
+    updateMany: async (data: any) => {
+        const results = [];
+        for (let i = 0; i < data.length; i++) {
+            const result = await Student.findByIdAndUpdate(
+                data[i].id,
+                { status: data[i].status },
+                {
+                    new: true,
+                }
+            );
+            results.push(result);
+        }
+        return results;
+    },
     deleteById: async (id: string) => {
         return Student.findByIdAndDelete(id);
     },

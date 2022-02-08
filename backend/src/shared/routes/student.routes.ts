@@ -8,6 +8,6 @@ studentRouter.get("/", studentController.get);
 studentRouter.get("/:id", studentController.getById);
 studentRouter.put("/:id", studentController.updateById);
 studentRouter.delete("/:id", studentController.deleteById);
-studentRouter.post("/change-status", studentController.changeStatus);
+studentRouter.post("/update-many", studentController.updateMany);
 
 export default studentRouter;

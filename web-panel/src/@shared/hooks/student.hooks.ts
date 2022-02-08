@@ -1,3 +1,4 @@
+import { AxiosResponse } from "axios";
 import { IStudentFilter } from "@shared/interfaces";
 import { MutationConfig, QueryConfig, queryClient } from "@shared/config";
 import { studentService } from "@shared/services";
@@ -52,6 +53,18 @@ export const useUpdateStudent = ({ config }: IFuseUpdateStudent = {}) => {
     });
 };
 
+//---------------- useUpdateStudents hook ------------------------------------
+type IFuseUpdateStudents = {
+    config?: MutationConfig<typeof studentService.updateMany>;
+};
+
+export const useUpdateStudents = ({ config }: IFuseUpdateStudents = {}) => {
+    return useMutation({
+        ...config,
+        mutationFn: studentService.updateMany,
+    });
+};
+
 //---------------- useDeleteStudent hook ------------------------------------
 type IFuseDeleteStudent = {
     config?: MutationConfig<typeof studentService.delete>;
@@ -59,12 +72,18 @@ type IFuseDeleteStudent = {
 
 export const useDeleteStudent = ({ config }: IFuseDeleteStudent = {}) => {
     return useMutation({
-        onSuccess: () => {
-            queryClient.invalidateQueries(studentService.NAME);
-            notification.success({
-                type: "success",
-                message: "Student Deleted",
-            });
+        onSuccess: (res: AxiosResponse) => {
+            if (res?.data?.success) {
+                queryClient.invalidateQueries(studentService.NAME);
+                notification.success({
+                    message: res?.data?.message,
+                });
+            } else {
+                notification.error({
+                    type: "error",
+                    message: res?.data?.message || "Something is wrong",
+                });
+            }
         },
         ...config,
         mutationFn: studentService.delete,

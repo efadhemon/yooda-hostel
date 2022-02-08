@@ -48,7 +48,14 @@ const studentController = {
             return responseData({ req, res, error });
         }
     },
-    changeStatus: async (req: Request, res: Response) => {},
+    updateMany: async (req: Request, res: Response) => {
+        try {
+            const data = await studentService.updateMany(req.body);
+            return responseData({ req, res, data });
+        } catch (error) {
+            return responseData({ req, res, error });
+        }
+    },
 };
 
 export default studentController;

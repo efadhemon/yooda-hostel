@@ -26,6 +26,9 @@ export const studentService = {
         delete payload.id;
         return CoreAxiosInstance.put(`${END_POINT}${id}`, payload);
     },
+    updateMany(payload: any) {
+        return CoreAxiosInstance.post(`${END_POINT}update-many`, payload);
+    },
     delete(id: string) {
         return CoreAxiosInstance.delete(`${END_POINT}${id}`);
     },

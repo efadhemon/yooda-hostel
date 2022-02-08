@@ -1,13 +1,9 @@
 import { Button, Popconfirm, Space, Table } from "antd";
 import { useState } from "react";
-import { Paths } from "@shared/enums";
-import { useNavigate } from "react-router-dom";
 import { IDistribution, IFood } from "@shared/interfaces";
 import { useDeleteDistribution, useDistributions } from "@shared/hooks";
 
 const DistributionList = () => {
-    const navigate = useNavigate();
-
     const deleteDistribution = useDeleteDistribution();
 
     const [dataQuantity, setDataQuantity] = useState({
