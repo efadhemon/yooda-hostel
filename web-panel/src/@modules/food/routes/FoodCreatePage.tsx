@@ -1,18 +1,18 @@
 import { AxiosResponse } from "axios";
 import { notification, PageHeader } from "antd";
 import { Paths } from "@shared/enums";
-import CreateStudentForm from "../components/CreateStudentForm";
 import { useNavigate } from "react-router-dom";
-import { useCreateStudent } from "@shared/hooks";
+import { useCreateFood } from "@shared/hooks";
+import FoodCreateForm from "../components/FoodCreateForm";
 
-const StudentCreatePage = () => {
+const FoodCreatePage = () => {
     const navigate = useNavigate();
 
-    const createStudent = useCreateStudent({
+    const createFood = useCreateFood({
         config: {
             onSuccess: (res: AxiosResponse) => {
                 if (res?.data?.success) {
-                    navigate(Paths.StudentList);
+                    navigate(Paths.FoodList);
                     notification.success({
                         message: res?.data?.message,
                     });
@@ -26,13 +26,13 @@ const StudentCreatePage = () => {
     });
 
     return (
-        <PageHeader onBack={() => navigate(-1)} title="Create Student">
-            <CreateStudentForm
-                isLoading={createStudent.isLoading}
-                onFinish={(values) => createStudent.mutateAsync(values)}
+        <PageHeader onBack={() => navigate(-1)} title="Create Food">
+            <FoodCreateForm
+                isLoading={createFood.isLoading}
+                onFinish={(values) => createFood.mutateAsync(values)}
             />
         </PageHeader>
     );
 };
 
-export default StudentCreatePage;
+export default FoodCreatePage;

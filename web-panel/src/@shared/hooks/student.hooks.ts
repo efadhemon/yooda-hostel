@@ -7,11 +7,9 @@ import { notification } from "antd";
 //---------------- useStudents hook ------------------------------------
 type IFuseStudents = {
     options: IStudentFilter;
-    config?: QueryConfig<typeof studentService.filter>;
 };
-export const useStudents = ({ options, config }: IFuseStudents) => {
+export const useStudents = ({ options }: IFuseStudents) => {
     return useQuery({
-        // ...config,
         queryKey: [studentService.NAME, options],
         queryFn: () => studentService.filter(options),
     });

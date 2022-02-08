@@ -3,23 +3,13 @@ import { Button, Col, Form, Input, Row, Select } from "antd";
 const { Option } = Select;
 
 interface IFProps {
-    initialValues?: ICreateStudent;
     onFinish?: (values: ICreateStudent) => void;
     isLoading?: boolean;
 }
 
-const CreateStudentForm: React.FC<IFProps> = ({
-    initialValues,
-    onFinish,
-    isLoading,
-}) => {
+const CreateStudentForm: React.FC<IFProps> = ({ onFinish, isLoading }) => {
     return (
-        <Form
-            size="large"
-            layout="vertical"
-            initialValues={initialValues}
-            onFinish={onFinish}
-        >
+        <Form size="large" layout="vertical" onFinish={onFinish}>
             <Row gutter={{ sm: 16, md: 20, lg: 30 }}>
                 <Col xs={24} sm={24} md={12} lg={8} xl={8}>
                     <Form.Item

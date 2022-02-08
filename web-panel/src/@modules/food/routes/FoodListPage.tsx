@@ -1,26 +1,27 @@
 import { Paths } from "@shared/enums";
 import { Button, PageHeader } from "antd";
 import { useNavigate } from "react-router-dom";
-import StudentList from "../components/StudentList";
+import FoodList from "../components/FoodList";
 
-const StudentsPage = () => {
+const FoodListPage = () => {
     const navigate = useNavigate();
     return (
         <PageHeader
-            title="Student List"
+            // onBack={() => null}
+            title="Food List"
             extra={[
                 <Button
                     key="1"
-                    onClick={() => navigate(Paths.StudentCreate)}
+                    onClick={() => navigate(Paths.FoodCreate)}
                     type="primary"
                 >
-                    Add Student
+                    Add Food
                 </Button>,
             ]}
         >
-            <StudentList />
+            <FoodList />
         </PageHeader>
     );
 };
 
-export default StudentsPage;
+export default FoodListPage;

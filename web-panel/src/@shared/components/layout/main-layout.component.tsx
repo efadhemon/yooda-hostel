@@ -7,7 +7,7 @@ import { IMAGES } from "@shared/assets";
 import { Paths } from "@shared/enums";
 import { useNavigate } from "react-router-dom";
 import { useResponsive } from "ahooks";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUnorderedList, AiOutlineUser } from "react-icons/ai";
 
 const { Header, Sider, Content } = Layout;
 
@@ -120,6 +120,15 @@ const MainLayout: React.FC<IFProps> = ({ children }) => {
                         key={Paths.StudentList}
                     >
                         Students
+                    </Menu.Item>
+                    <Menu.Item
+                        icon={<AiOutlineUnorderedList />}
+                        onClick={() =>
+                            navigate(Paths.FoodList, { replace: true })
+                        }
+                        key={Paths.FoodList}
+                    >
+                        Foods
                     </Menu.Item>
                 </Menu>
             </Sider>

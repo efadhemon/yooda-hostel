@@ -2,34 +2,30 @@ import { Button, Popconfirm, Space, Table } from "antd";
 import { useState } from "react";
 import { Paths } from "@shared/enums";
 import { useNavigate } from "react-router-dom";
-import { useDeleteStudent, useStudents } from "@shared/hooks";
-import { IStudent } from "@shared/interfaces";
+import { IFood } from "@shared/interfaces";
+import { useDeleteFood, useFoods } from "@shared/hooks";
 
-const StudentList = () => {
+const FoodList = () => {
     const navigate = useNavigate();
 
-    const deleteStudent = useDeleteStudent();
+    const deleteFood = useDeleteFood();
 
     const [dataQuantity, setDataQuantity] = useState({
         page: 1,
         take: 10,
     });
-    const { data, isLoading } = useStudents({
+    const { data, isLoading } = useFoods({
         options: {
             page: dataQuantity.page,
             take: dataQuantity.take,
         },
     });
 
-    const dataSource = data?.data?.payload?.map((x: IStudent) => ({
+    const dataSource = data?.data?.payload?.map((x: IFood) => ({
         key: x._id,
         id: x._id,
         name: x.name,
-        age: x.age,
-        class: x.class,
-        roll: x.roll,
-        hall: x.hall,
-        status: x.status,
+        price: x.price,
     }));
 
     const columns = [
@@ -39,29 +35,9 @@ const StudentList = () => {
             key: "name",
         },
         {
-            title: "Age",
-            dataIndex: "age",
-            key: "age",
-        },
-        {
-            title: "Class",
-            dataIndex: "class",
-            key: "class",
-        },
-        {
-            title: "Roll",
-            dataIndex: "roll",
-            key: "roll",
-        },
-        {
-            title: "Hall",
-            dataIndex: "hall",
-            key: "hall",
-        },
-        {
-            title: "Status",
-            dataIndex: "status",
-            key: "status",
+            title: "Price",
+            dataIndex: "price",
+            key: "price",
         },
         {
             title: "Action",
@@ -71,7 +47,7 @@ const StudentList = () => {
                 <Space>
                     <Button
                         type="primary"
-                        onClick={() => navigate(`${Paths.StudentUpdate}/${id}`)}
+                        onClick={() => navigate(`${Paths.FoodUpdate}/${id}`)}
                     >
                         Update
                     </Button>
@@ -80,7 +56,7 @@ const StudentList = () => {
                             loading: false,
                         }}
                         title="Are you sure to delete this task?"
-                        onConfirm={() => deleteStudent.mutate(id)}
+                        onConfirm={() => deleteFood.mutate(id)}
                         okText="Yes"
                         cancelText="No"
                     >
@@ -109,4 +85,4 @@ const StudentList = () => {
     );
 };
 
-export default StudentList;
+export default FoodList;

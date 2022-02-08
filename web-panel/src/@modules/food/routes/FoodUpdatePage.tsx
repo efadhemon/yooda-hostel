@@ -1,20 +1,20 @@
 import { Paths } from "@shared/enums";
-import { useStudent, useUpdateStudent } from "@shared/hooks";
+import { useFood, useUpdateFood } from "@shared/hooks";
 import { Purify } from "@shared/utils";
 import { notification, PageHeader } from "antd";
 import { AxiosResponse } from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import UpdateStudentForm from "../components/UpdateStudentForm";
+import FoodUpdateForm from "../components/FoodUpdateForm";
 
-const StudentUpdatePage = () => {
+const FoodUpdatePage = () => {
     const navigate = useNavigate();
     const { id }: any = useParams();
-    const { data, isLoading } = useStudent({ id });
-    const updateStudent = useUpdateStudent({
+    const { data, isLoading } = useFood({ id });
+    const updateFood = useUpdateFood({
         config: {
             onSuccess: (res: AxiosResponse) => {
                 if (res?.data?.success) {
-                    navigate(Paths.StudentList);
+                    navigate(Paths.FoodList);
                     notification.success({
                         message: res?.data?.message,
                     });
@@ -31,11 +31,11 @@ const StudentUpdatePage = () => {
     return (
         <Purify loading={isLoading} empty={false}>
             <PageHeader onBack={() => navigate(-1)} title="Update Student">
-                <UpdateStudentForm
+                <FoodUpdateForm
                     initialValues={data?.data?.payload}
-                    isLoading={updateStudent.isLoading}
+                    isLoading={updateFood.isLoading}
                     onFinish={(values) =>
-                        updateStudent.mutateAsync({ ...values, id })
+                        updateFood.mutateAsync({ ...values, id })
                     }
                 />
             </PageHeader>
@@ -43,4 +43,4 @@ const StudentUpdatePage = () => {
     );
 };
 
-export default StudentUpdatePage;
+export default FoodUpdatePage;
