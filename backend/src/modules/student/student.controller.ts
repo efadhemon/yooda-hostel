@@ -1,9 +1,22 @@
 import { Request, Response } from "express";
 import studentService from "./student.service";
 import { responseData } from "../../shared/utils/responseData";
+import Student from "./student.model";
 const studentController = {
     create: async (req: Request, res: Response) => {
         try {
+            // checking if the roll already in database
+            const isRollExist = await Student.findOne({
+                roll: req.body.roll,
+            });
+
+            if (isRollExist)
+                return res.send({
+                    success: false,
+                    message:
+                        "The is another student. Please select another roll",
+                    payload: null,
+                });
             const data = await studentService.create(req.body);
             return responseData({ req, res, data });
         } catch (error) {
@@ -33,6 +46,20 @@ const studentController = {
     updateById: async (req: Request, res: Response) => {
         try {
             const id = req.params.id;
+
+            const student: any = await Student.findById(id);
+            // checking if the roll already in database
+            const isRollExist = await Student.findOne({
+                roll: req.body.roll,
+            });
+
+            if (student.roll != req.body.roll && isRollExist)
+                return res.send({
+                    success: false,
+                    message:
+                        "The is another student. Please select another roll",
+                    payload: null,
+                });
             const data = await studentService.updateById(id, req.body);
             return responseData({ req, res, data });
         } catch (error) {
