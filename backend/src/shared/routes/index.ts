@@ -5,7 +5,7 @@ import studentRouter from "./student.routes";
 
 const indexRouter = express.Router();
 
-indexRouter.use("/", (req: Request, res: Response) => {
+indexRouter.get("/", (req: Request, res: Response) => {
     res.status(200).send("Welcome, Your app is working");
 });
 
