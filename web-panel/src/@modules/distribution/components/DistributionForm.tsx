@@ -1,6 +1,6 @@
 import { useFoods, useStudents } from "@shared/hooks";
 import { ICreateDistribution, IFood, IStudent } from "@shared/interfaces";
-import { Button, Col, DatePicker, Form, Input, Row, Select } from "antd";
+import { Button, Col, DatePicker, Form, Row, Select } from "antd";
 import { useState } from "react";
 
 interface IFProps {
