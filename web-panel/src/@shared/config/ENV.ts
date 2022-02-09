@@ -1,3 +1,3 @@
 export const ENV = {
-	CORE_END_POINT: "http://localhost:5000/",
-}
+    CORE_END_POINT: "https://yooda-hostel.herokuapp.com/",
+};
