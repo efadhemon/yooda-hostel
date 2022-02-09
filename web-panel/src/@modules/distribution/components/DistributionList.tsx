@@ -77,14 +77,8 @@ const DistributionList = () => {
             key: "id",
             render: (id: any) => (
                 <Space>
-                    <Button
-                        type="primary"
-                        onClick={() =>
-                            // navigate(`${Paths.DistributionList}/${id}`)
-                            null
-                        }
-                    >
-                        Edit
+                    <Button type="primary" disabled onClick={() => null}>
+                        Update
                     </Button>
                     <Popconfirm
                         okButtonProps={{

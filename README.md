@@ -1,6 +1,6 @@
 # Yooda Hostel
 
-<br /><br />
+<br />
 
 ## Demo LINKS
 
